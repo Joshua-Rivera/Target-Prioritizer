@@ -44,8 +44,8 @@ private:
     double bot_y;
 public:
     Bot(double bot_x, double bot_y){
-        this->bot_x = 0;
-        this->bot_y = 0;
+        this->bot_x = bot_x;
+        this->bot_y = bot_y;
     }
 
     //Getters
@@ -82,14 +82,35 @@ void getRobotPosition(vector<Bot>& position){
     Bot CurrPos(x, y);
     position.push_back(CurrPos);
 }
-void getDistanceFromTarget(vector<Bot>& position, vector<Target> targets){
-    int distance;
+void getDistanceFromTarget(vector<Bot>& position, vector<Target>& targets){
+    double distance;
     for (int i = 0; i < targets.size(); i++){
+        if (position.size() >= 1){
         int x = targets[i].getX_Cord() - position[0].getBot_x();
         int y = targets[i].getY_Cord() - position[0].getBot_y();
         distance = sqrt(pow(x, 2) + pow(y, 2));
-        targets[i].setDistanceFromBot(distance);
+        targets[i].setDistanceFromBot(round(distance*100.0)/100.0);}
     }return;
+}
+
+
+void sortPriorityTarget(vector<Target>& targets){
+    int target = targets.size();
+    bool swapped = false;
+    int count = 1;
+    for (int i = 0; i < target - 1; i ++){
+        
+        for (int j = 0; j < target - i - 1; j++){
+            if (targets[j].getDistanceFromBot() > targets[j+1].getDistanceFromBot()){
+                swap(targets[j], targets[j+1]);
+                swapped = true;
+            }
+        }
+    } for (int i = 0; i < targets.size(); i++){
+        targets[i].setPriority(count);
+        count++;
+    }return;
+    if (!swapped) {return;}
 }
 
 
@@ -98,11 +119,13 @@ int main(){
     vector<Bot> position;
     vector<Target> targets;
     generateTargets(targets, 5);
-    // getDistanceFromTarget(position, targets);
+    getRobotPosition(position);
+    getDistanceFromTarget(position, targets);
+    sortPriorityTarget(targets);
     for (int i = 0; i < targets.size(); i++){
-        cout << "ID: " << targets[i].getID() << "\nPriority: " << targets[i].getPriority() 
+        cout << "======================================" << "\nPriority: " << targets[i].getPriority() << "\nID: " << targets[i].getID() 
         << "\nX Coordinates: " << targets[i].getX_Cord() << "\nY Coordinates: " << targets[i].getY_Cord() << "\nDistance: "
-        << targets[i].getDistanceFromBot() << endl;
+        << targets[i].getDistanceFromBot() << "\n======================================" <<endl;
     }
     return 0;
 }
