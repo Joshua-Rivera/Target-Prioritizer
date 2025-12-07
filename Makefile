@@ -1,7 +1,11 @@
 CXX = g++
 CXXFLAGS = -Wall -std=c++17
 
-SRC = main.cpp Bot.cpp Target.cpp Calculations.cpp
+SRC_DIR = src
+SRC = $(SRC_DIR)/main.cpp \
+      $(SRC_DIR)/Bot.cpp \
+      $(SRC_DIR)/Target.cpp \
+      $(SRC_DIR)/Calculations.cpp
 OBJ = $(SRC:.cpp=.o)
 
 TARGET = sim
@@ -9,10 +13,10 @@ TARGET = sim
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJ)
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $<
+$(SRC_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ) $(TARGET)
