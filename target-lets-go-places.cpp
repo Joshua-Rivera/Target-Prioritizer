@@ -76,20 +76,19 @@ void generateTargets(vector<Target>& targets, int amount){
         
         
 }
-void getRobotPosition(vector<Bot>& position){
-    int x = 3;
-    int y = 0;
-    Bot CurrPos(x, y);
-    position.push_back(CurrPos);
+void getRobotPosition(Bot& bot){
+    int x = RandomNumberGenerator(-10, 10);
+    int y = RandomNumberGenerator(-10, 10);
+    bot.setBot_x(x);
+    bot.setBot_y(y);
 }
-void getDistanceFromTarget(vector<Bot>& position, vector<Target>& targets){
+void getDistanceFromTarget(Bot& bot, vector<Target>& targets){
     double distance;
     for (int i = 0; i < targets.size(); i++){
-        if (position.size() >= 1){
-        int x = targets[i].getX_Cord() - position[0].getBot_x();
-        int y = targets[i].getY_Cord() - position[0].getBot_y();
+        int x = targets[i].getX_Cord() - bot.getBot_x();
+        int y = targets[i].getY_Cord() - bot.getBot_y();
         distance = sqrt(pow(x, 2) + pow(y, 2));
-        targets[i].setDistanceFromBot(round(distance*100.0)/100.0);}
+        targets[i].setDistanceFromBot(round(distance*100.0)/100.0);
     }return;
 }
 
@@ -116,16 +115,17 @@ void sortPriorityTarget(vector<Target>& targets){
 
 int main(){
     srand(time(nullptr)); //Make sure randint is always random
-    vector<Bot> position;
+    Bot bot (0,0);
     vector<Target> targets;
     generateTargets(targets, 5);
-    getRobotPosition(position);
-    getDistanceFromTarget(position, targets);
+    getRobotPosition(bot);
+    getDistanceFromTarget(bot, targets);
     sortPriorityTarget(targets);
     for (int i = 0; i < targets.size(); i++){
         cout << "======================================" << "\nPriority: " << targets[i].getPriority() << "\nID: " << targets[i].getID() 
-        << "\nX Coordinates: " << targets[i].getX_Cord() << "\nY Coordinates: " << targets[i].getY_Cord() << "\nDistance: "
-        << targets[i].getDistanceFromBot() << "\n======================================" <<endl;
+        << "\nTarget Coordinates: (" << targets[i].getX_Cord() << ", " << targets[i].getY_Cord() <<  ")\nBot Coordinates: (" << bot.getBot_x() << "," << bot.getBot_y() 
+        << ")\nDistance from Target: " << targets[i].getDistanceFromBot() 
+        <<"\n======================================" <<endl;
     }
     return 0;
 }
