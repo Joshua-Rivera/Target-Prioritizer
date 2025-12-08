@@ -62,3 +62,11 @@ Simulation::Simulation(Bot& bot, std::vector<Target>& targets)
             return;
     }moveOneStep();
 }
+
+void Simulation::resetPlz(Bot &bot, std::vector<Target> &targets)  {
+    this->bot = bot;
+    this->targets = targets;
+    hasCurrentTarget = false;
+    done = false;
+    stepCount = 0;
+}

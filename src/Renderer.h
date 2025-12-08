@@ -14,9 +14,13 @@ private:
     int minCoord;
     int maxCoord;
     sf::Texture botTexture{"assets/derechabot.png"};
+    sf::Texture bot2Texture{"assets/derechabot.png"};
+    sf::Texture bot3Texture{"assets/izquierdabot.png"};
     sf::Texture targetTexture{"assets/target.png"};
     sf::Texture tileTexture{"assets/tile.png"};
     sf::Sprite botSprite{botTexture};
+    sf::Sprite bot2Sprite{bot2Texture};
+    sf::Sprite bot3Sprite{bot3Texture};
     sf::Sprite targetSprite{targetTexture};
     sf::Sprite tileSprite{tileTexture};
     sf::Vector2f screen(int gridX, int gridY) const;

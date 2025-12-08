@@ -7,7 +7,8 @@ SRC = src/main.cpp \
       src/Target.cpp \
       src/Calculations.cpp \
       src/Simulation.cpp \
-      src/Renderer.cpp
+      src/Renderer.cpp \
+      src/State.cpp
 
 OBJ = $(SRC:.cpp=.o)
 TARGET = sim

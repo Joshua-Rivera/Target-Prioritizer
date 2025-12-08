@@ -4,10 +4,6 @@
 #include "Target.h"
 
 class Simulation{
-public:
-    Simulation(Bot& bot, std::vector<Target>& targets);
-    void update();
-    bool isDone() const;
 private:
     Bot& bot;
     std::vector<Target>& targets;
@@ -17,4 +13,10 @@ private:
     Target currentTarget;
     void pickNextTarget();
     void moveOneStep();
+public:
+    void resetPlz(Bot &bot, std::vector<Target> &targets);  
+    Simulation(Bot& bot, std::vector<Target>& targets);
+    void update();
+    bool isDone() const;
+
 };
