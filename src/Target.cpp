@@ -15,8 +15,8 @@ void Target::setX_cord(double NewX) {x_cord = NewX;}
 void Target::setY_cord(double NewY) {y_cord = NewY;}
 void Target::setDistanceFromBot(double NewBotDist) {distanceFromBot = NewBotDist;}
 //Getters
-int Target::getID(){return id;}
-int Target::getPriority() {return priority;}
-double Target::getX_Cord() {return x_cord;}
-double Target::getY_Cord() {return y_cord;}
-double Target::getDistanceFromBot() {return distanceFromBot;}
+int Target::getID() const {return id;}
+int Target::getPriority() const {return priority;}
+double Target::getX_Cord() const {return x_cord;}
+double Target::getY_Cord() const {return y_cord;}
+double Target::getDistanceFromBot() const {return distanceFromBot;}

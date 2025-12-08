@@ -8,8 +8,8 @@ class Bot{
         Bot(double bot_x, double bot_y);
     
         //Getters
-        double getBot_x();
-        double getBot_y();
+        double getBot_x() const;
+        double getBot_y() const;
     
         //Setters
         void setBot_x(double NewBot_X);

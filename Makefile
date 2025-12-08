@@ -1,21 +1,23 @@
 CXX = g++
-CXXFLAGS = -Wall -std=c++17
+CXXFLAGS = -Wall -std=c++17 -I/opt/homebrew/include
+LDFLAGS = -L/opt/homebrew/lib -lsfml-graphics -lsfml-window -lsfml-system
 
-SRC_DIR = src
-SRC = $(SRC_DIR)/main.cpp \
-      $(SRC_DIR)/Bot.cpp \
-      $(SRC_DIR)/Target.cpp \
-      $(SRC_DIR)/Calculations.cpp
+SRC = src/main.cpp \
+      src/Bot.cpp \
+      src/Target.cpp \
+      src/Calculations.cpp \
+      src/Simulation.cpp \
+      src/Renderer.cpp
+
 OBJ = $(SRC:.cpp=.o)
-
 TARGET = sim
 
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJ) $(LDFLAGS)
 
-$(SRC_DIR)/%.o: $(SRC_DIR)/%.cpp
+src/%.o: src/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:

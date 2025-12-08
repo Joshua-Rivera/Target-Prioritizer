@@ -18,11 +18,11 @@ class Target{
         void setY_cord(double NewY);
         void setDistanceFromBot(double NewBotDist);
         //Getters
-        int getID();
-        int getPriority();
-        double getX_Cord();
-        double getY_Cord();
-        double getDistanceFromBot();
+        int getID() const;
+        int getPriority() const;
+        double getX_Cord() const;
+        double getY_Cord() const;
+        double getDistanceFromBot() const;
     
         
     };
