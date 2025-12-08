@@ -15,6 +15,17 @@ int main(){
     srand(static_cast<unsigned>(time(nullptr))); //Make sure randint is always random
     vector<Target> targets;
     Bot bot (0,0);
+    generateTargets(targets, 5);
+    getRobotPosition(bot);
+    getDistanceFromTarget(bot, targets);
+    sortPriorityTarget(targets);
+    cout << "==== TARGET PRIORITIES' (CONSOLE) ====" << endl;
+    for (int i = 0; i < targets.size(); i++){
+        cout << "======================================" << "\nPriority: " << targets[i].getPriority() << "\nID: " << targets[i].getID() 
+        << "\nTarget Coordinates: (" << targets[i].getX_Cord() << ", " << targets[i].getY_Cord() <<  ")\nBot Coordinates: (" << bot.getBot_x() << "," << bot.getBot_y() 
+        << ")\nDistance from Target: " << targets[i].getDistanceFromBot() 
+        <<"\n======================================" <<endl;
+    }
     Simulation sim(bot, targets);
     int tileSize = 32;
     int minCoord = -10;
@@ -44,15 +55,6 @@ int main(){
         renderer.draw(window, bot, targets);
         window.display();
     }
-    generateTargets(targets, 5);
-    getRobotPosition(bot);
-    getDistanceFromTarget(bot, targets);
-    sortPriorityTarget(targets);
-    for (int i = 0; i < targets.size(); i++){
-        cout << "======================================" << "\nPriority: " << targets[i].getPriority() << "\nID: " << targets[i].getID() 
-        << "\nTarget Coordinates: (" << targets[i].getX_Cord() << ", " << targets[i].getY_Cord() <<  ")\nBot Coordinates: (" << bot.getBot_x() << "," << bot.getBot_y() 
-        << ")\nDistance from Target: " << targets[i].getDistanceFromBot() 
-        <<"\n======================================" <<endl;
-    }
+    
     return 0;
 }
