@@ -13,12 +13,12 @@ private:
     int tileSize;
     int minCoord;
     int maxCoord;
-    sf::Texture botTexture;
-    sf::Texture targetTexture;
-    sf::Texture tileTexture;
-    sf::Sprite botSprite;
-    sf::Sprite targetSprite;
-    sf::Sprite tileSprite;
+    sf::Texture botTexture{"assets/derechabot.png"};
+    sf::Texture targetTexture{"assets/target.png"};
+    sf::Texture tileTexture{"assets/tile.png"};
+    sf::Sprite botSprite{botTexture};
+    sf::Sprite targetSprite{targetTexture};
+    sf::Sprite tileSprite{tileTexture};
     sf::Vector2f screen(int gridX, int gridY) const;
 
 };

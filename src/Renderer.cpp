@@ -1,12 +1,31 @@
 #include "Renderer.h"
 #include <iostream>
-
+#include <filesystem>
+#include <fstream>
 Renderer::Renderer(int tileSize, int minCoord, int maxCoord)
     : tileSize(tileSize), minCoord(minCoord), 
     maxCoord(maxCoord), botSprite(botTexture),
     targetSprite(targetTexture), tileSprite(tileTexture) {}
 
 bool Renderer::loadAssets() {
+    using std::cout;
+    using std::endl;
+
+    cout << "=== Renderer::loadAssets ===" << endl;
+    cout << "Current working directory: "
+         << std::filesystem::current_path() << endl;
+
+    auto checkFile = [](const char* path) {
+        std::ifstream f(path, std::ios::binary);
+        std::cout << "  Does \"" << path << "\" exist? "
+                  << (f.good() ? "YES" : "NO") << std::endl;
+    };
+
+    checkFile("assets/standingbot.png");
+    checkFile("assets/target.png");
+    checkFile("assets/tile.png");
+
+
     bool working = true;
 
     if (!botTexture.loadFromFile("assets/standingbot.png")) {
@@ -48,6 +67,7 @@ bool Renderer::loadAssets() {
     botSprite.setScale(sf::Vector2f(botScaleX, botScaleY));
     targetSprite.setScale(sf::Vector2f(targetScaleX, targetScaleY));
     tileSprite.setScale(sf::Vector2f(tileScaleX, tileScaleY));
+    cout << "=== loadAssets DONE ===" << endl;
 
     return true;
 }
@@ -68,26 +88,20 @@ void Renderer::draw(sf::RenderWindow& window, const Bot& bot, const std::vector<
     }
 
     for (const auto& target : targets) {
-        sf::Vector2f pos = screen(static_cast<int>(target.getX_Cord()), 
-        static_cast<int>(target.getY_Cord()));
+        sf::Vector2f pos = screen(
+            static_cast<int>(target.getX_Cord()),
+            static_cast<int>(target.getY_Cord())
+        );
         targetSprite.setPosition(pos);
         window.draw(targetSprite);
-        sf::CircleShape targetCircle(6.f);  // radius = 6 px
-        targetCircle.setFillColor(sf::Color::Green);
-        targetCircle.setOrigin(sf::Vector2f(6.f, 6.f)); // center the circle
-        targetCircle.setPosition(pos);
-        window.draw(targetCircle);
-
     }
 
-    sf::Vector2f botPos = screen(static_cast<int>(bot.getBot_x()), 
-    static_cast<int>(bot.getBot_y()));
+    sf::Vector2f botPos = screen(
+        static_cast<int>(bot.getBot_x()),
+        static_cast<int>(bot.getBot_y())
+    );
     botSprite.setPosition(botPos);
     window.draw(botSprite);
-    sf::CircleShape botCircle(8.f);
-    botCircle.setFillColor(sf::Color::Red);
-    botCircle.setOrigin(sf::Vector2f(8.f, 8.f));
-    botCircle.setPosition(botPos);
-    window.draw(botCircle);
+    
 
 }
