@@ -20,7 +20,7 @@ State::State(int tileSize, int minCoord, int maxCoord)
 
 void State::reset(){
     targets.clear();
-    generateTargets(targets, 10);
+    generateTargets(targets, 20);
     getRobotPosition(bot);
     getDistanceFromTarget(bot, targets);
     sortPriorityTarget(targets);
