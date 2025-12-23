@@ -11,7 +11,8 @@ int RandomNumberGenerator(int min, int max){
 
 void generateTargets(vector<Target>& targets, int amount){
     int i = 1;
-    while (i <= amount){
+    while (i <= amount) // amount functions as the limit for how many targets to be generated and amount is set when the function is called in state.cpp
+    {
         int x = RandomNumberGenerator(-10, 10);
         int y = RandomNumberGenerator(-10, 10);
         int id = i; int priority = 0;
